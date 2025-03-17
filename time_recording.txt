@@ -1,5 +1,0 @@
-whisper+pyannote(base)=1min
-whisper+pyannote(light)=7min
-noScribe(fast)=45sec
-noScribe(precise)=45sec
-noScribe(precise,informed)=36sec

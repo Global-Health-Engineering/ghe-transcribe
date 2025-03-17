@@ -1,6 +1,6 @@
 # CREDIT: https://github.com/yinruiqing/pyannote-whisper
 
-from pyannote.core import Segment, Annotation, Timeline
+from pyannote.core import Segment
 
 def get_text_with_timestamp(transcribe_res):
     timestamp_texts = []
@@ -57,12 +57,19 @@ def merge_sentence(spk_text):
 def diarize_text(transcribe_res, diarization_result):
     timestamp_texts = get_text_with_timestamp(transcribe_res)
     spk_text = add_speaker_info_to_text(timestamp_texts, diarization_result)
-    res_processed = merge_sentence(spk_text)
-    return res_processed
+    result = merge_sentence(spk_text)
+    return result
 
 
-def write_to_txt(spk_sent, file):
-    with open(file, 'w') as fp:
-        for seg, spk, sentence in spk_sent:
-            line = f'{seg.start:.2f} {seg.end:.2f} {spk} {sentence}\n'
-            fp.write(line)
+def write_to_txt(spk_sent, file, semicolumn=False):
+    if semicolumn:
+        with open(file, 'w') as fp:
+            for seg, spk, sentence in spk_sent:
+                line = f'{seg.start:.2f};{seg.end:.2f};{spk};{sentence}\n'
+                fp.write(line)
+        return
+    else:
+        with open(file, 'w') as fp:
+            for seg, spk, sentence in spk_sent:
+                line = f'{seg.start:.2f} {seg.end:.2f} {spk} {sentence}\n'
+                fp.write(line)
