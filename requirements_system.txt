@@ -1,0 +1,7 @@
+# Mac OS installation steps
+
+brew install ffmpeg cmake python3.12
+python3.12 -m venv venv3.12_transcribe --system-site-packages
+source venv3.12_transcribe/bin/activate
+pip3.12 install huggingface_hub pyannote.audio torch faster-whisper ipython ipykernel 
+ipython kernel install --user --name=venv3.12_transcribe
